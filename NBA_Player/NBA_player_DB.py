@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 class NBA_player_DB:
     def __init__(self) -> None:
         self.__data = []
+        self.__load()
    
     def __load(self) -> None:
         load_dotenv()

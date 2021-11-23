@@ -1,4 +1,3 @@
-from typing import List
 from NBA_Player import NBA_player_duo
 class User:
     def __init__(self) -> None:

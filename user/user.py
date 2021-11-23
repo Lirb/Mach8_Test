@@ -13,4 +13,5 @@ class User:
         for nba_duo in self.__query_result:
             str_result_list += str(nba_duo)
         return str_result_list
-     
+    def query():
+        pass

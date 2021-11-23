@@ -1,4 +1,4 @@
-import NBA_player
+from .NBA_player import NBA_player
 class NBA_player_duo:
     def __init__(self, NBA_player_1: NBA_player, NBA_player_2: NBA_player) -> None:
         self.__NBA_player_1 = NBA_player_1

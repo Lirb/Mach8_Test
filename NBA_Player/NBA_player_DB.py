@@ -1,4 +1,4 @@
-import NBA_player
+from . import NBA_player
 import requests
 import json
 import os

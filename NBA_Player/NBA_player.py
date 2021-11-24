@@ -4,8 +4,8 @@ class NBA_player:
     def __init__(self, first_name:str, last_name:str, h_in:float, h_meters:float) -> None:
        self.__first_name = first_name
        self.__last_name = last_name
-       self.__h_in = h_in
-       self.__h_meters = h_meters
+       self.__h_in = float(h_in)
+       self.__h_meters = float(h_meters)
        
     def __str__(self) -> str:
         return f"{self.__first_name} {self.__last_name} {self.__h_in}"
@@ -29,9 +29,9 @@ class NBA_player:
         self.__first_name = first_name
     def setLastName(self, last_name:str) -> None:
         self.__last_name = last_name
-    def setHeightInches(self,h_in:str) -> None:
+    def setHeightInches(self,h_in:float) -> None:
         self.__h_in = h_in
-    def setHeightMeters(self,h_meters:str) -> None:
+    def setHeightMeters(self,h_meters:float) -> None:
         self.__h_meters = h_meters
         
     class NBA_player_encoder(JSONEncoder):

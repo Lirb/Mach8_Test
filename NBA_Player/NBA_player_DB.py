@@ -17,23 +17,21 @@ class NBA_player_DB:
         request_data = json.loads(request_response.text)
         for jsonObject in request_data["values"]:
             nba_player = NBA_player(**jsonObject)            
-            self.__data.append(nba_player)            
-           
+            self.__data.append(nba_player)     
         
         def sortingAtribute(nba_player:NBA_player):
             return nba_player.getHeightInches()
         
         self.__data = sorted(self.__data, key=sortingAtribute)
-        
+        print("Hola")
         for index, nba_player in enumerate(self.__data):
             height_inches = nba_player.getHeightInches()
-            if not height_inches in self.__height_pos:
-                self.__height_pos[height_inches] = index                
-          
-               
+            self.__height_pos[float(height_inches)] = index
+                           
+                         
     def filter(self, height: float):
         if not height in self.__height_pos:
             return None
         pos = self.__height_pos[height]
-        return self.__data[pos:]            
+        return self.__data[:pos]            
       

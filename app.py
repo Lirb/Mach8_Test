@@ -2,8 +2,9 @@ import NBA_Player
 
 def main():
     db = NBA_Player.NBA_player_DB()
-    filtered_data = db.filter(85)
-    print(filtered_data)
+    db.setPosition(500)
+    for nba_player in db:
+        print(nba_player.getFirstName())
     
 if __name__ == "__main__":
     main()

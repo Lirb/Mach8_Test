@@ -1,30 +1,32 @@
-from typing import List
-from NBA_Player import NBA_player_duo
-import NBA_Player
-from NBA_Player.NBA_player_DB import NBA_player_DB
+
+from NBA_Player import PlayerDuo
+from NBA_Player import PlayerDB
+
 class User:
     def __init__(self, total_height: float) -> None:
-        self.__total_height = 0.0
         self.__query_result = []
-        self.__DB = NBA_player_DB() 
+        self.__DB = PlayerDB() 
         self.__total_height = total_height
                      
-    def listQueryResults(self) -> str:
+    def list_query_results(self) -> str:
         str_result_list = ""
         for nba_duo in self.__query_result:
             str_result_list += str(nba_duo)
         return str_result_list
     
-    def query(self):        
-        for index, nba_player_1 in enumerate(self.__DB):
+    def query(self): 
+        initial_pos = 0       
+        for index, player_1 in enumerate(self.__DB):
             if index == 0:
-                NBA_player_space, initial_pos, _ = self.__DB.filter(self.__total_height - nba_player_1.getHeightInches())
+                player_space, initial_pos, _ = self.__DB.filter(self.__total_height - player_1.get_height_inches())
             else:
-                NBA_player_space, _, _ =  self.__DB.filter(self.__total_height - nba_player_1.getHeightInches())
-            for nba_player_2 in NBA_player_space:
-                self.__query_result.append(NBA_player_duo(nba_player_1,nba_player_2))
-            if index == initial_pos:
-                break
+                if index == initial_pos:
+                    break
+                player_space, _, _ =  self.__DB.filter(self.__total_height - player_1.get_height_inches())
+            for player_2 in player_space:
+                self.__query_result.append(PlayerDuo(player_1, player_2))
+            
+            
             
             
                     

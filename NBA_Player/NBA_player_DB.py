@@ -1,15 +1,35 @@
+from collections.abc import Iterator, Iterable
 from . import NBA_player
 import requests
 import json
 import os
 from dotenv import load_dotenv
  
-class NBA_player_DB:
+class NBA_player_DB(Iterator):
     def __init__(self) -> None:
+        self.__position = 0
         self.__data = []
         self.__height_final_pos = {}
         self.__height_init_pos = {}
         self.__load()
+    
+    def __next__(self):
+        try:
+            nba_player = self.__data[self.__position]
+            self.__position += 1
+        except IndexError:
+            raise StopIteration()
+        
+        return nba_player
+    
+    def __iter__(self):
+        return self 
+
+    def setPosition(self, position:int):
+        if position < len(self.__data):
+            self.__position = position
+        #else:
+            #raise an error
    
     def __load(self) -> None:
         load_dotenv()
@@ -35,6 +55,8 @@ class NBA_player_DB:
         if not height in self.__height_init_pos:
             return None
         init_pos = self.__height_init_pos[height]
-        final_pos = self.__height_final_pos
-        return self.__data[init_pos:final_pos]            
+        final_pos = self.__height_final_pos[height]
+        return self.__data[init_pos:final_pos], init_pos, final_pos
+    
+
       

@@ -46,7 +46,7 @@ This installation guide is created to be executed in a Windows 10+ machine with 
 	conda create --name mach8_env --file requirements.txt
 	```
 4. Execute the project:
-  the application expect the height as a execution argument.
-  ```
+    the application expect the height as a execution argument.
+    ```
 	python -m app <height integer input>
 	```

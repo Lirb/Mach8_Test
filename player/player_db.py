@@ -6,6 +6,16 @@ import os
 from dotenv import load_dotenv
  
 class PlayerDB(Iterator):
+    """retrieve NBA player data from the defined endpoint.Allows to make filtered
+    queries(by the NBA player height in inches) to the data retrieved. Extends 
+    from Iterator making the data search more easy. 
+
+    Args:
+        __data (List[Player]): Store sorted by height NBA Player(Player objects) created from the data retrieved.
+        __position (int): Encode the actual position during iterations.
+        __height_init_pos(Dict[int, int]): Enconde the first appearance position of a specificed height within __data atribute.
+        __height_final_pos(Dict[int, int]): Enconde the last appearance position of a specificed height within __data atribute.
+    """
     def __init__(self) -> None:
         self.__position = 0
         self.__data = []
@@ -48,6 +58,10 @@ class PlayerDB(Iterator):
             raise ValueError("Data was corrupt")
               
     def __load(self) -> None:
+        """Retrieve NBA player data from the defined endpoint,
+        this data is in json data and using data populate __data,
+        __height_init_pos and __height_final_pos.
+        """
         load_dotenv()
         url = os.getenv("DATA_URL")
         self.__check_data_server_connection(url)
@@ -64,12 +78,21 @@ class PlayerDB(Iterator):
             if not height_inches in self.__height_init_pos:
                 self.__height_init_pos[height_inches] = index            
                          
-    def filter(self, height: float) -> None:        
+    def filter(self, height: float):
+        """Filter and return a set of NBA players(Player objects) by a height
+        in inches.
+         
+        Returns:
+            [Player]: Set of NBA players which meet the height filter, in case of no 
+            NBA player meet the filter returns None.
+            [init_pos]: Encode the first appearance position of the filtered height within the __data attribute.
+            In case of no NBA plater meet the filter returns -1.
+        """        
         if not height in self.__height_init_pos:
-            return None, -1, -1
+            return None, -1
         init_pos = self.__height_init_pos[height]
         final_pos = self.__height_final_pos[height]
-        return self.__data[init_pos:final_pos+1], init_pos, final_pos
+        return self.__data[init_pos:final_pos+1], init_pos
     
 
       
